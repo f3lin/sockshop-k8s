@@ -46,11 +46,11 @@ cataloguedb:
     tag: 0.3.0
   resources:
     limits:
-      cpu: 200m
-      memory: 200Mi
+      cpu: 300m
+      memory: 500Mi
     requests:
       cpu: 100m
-      memory: 128Mi
+      memory: 300Mi
 
 catalogue:  
   image:
@@ -60,10 +60,10 @@ catalogue:
   resources:
     limits:
       cpu: 200m
-      memory: 200Mi
+      memory: 500Mi
     requests:
       cpu: 100m
-      memory: 100Mi
+      memory: 256Mi
 
 frontend:  
   image:
@@ -201,11 +201,12 @@ user:
     # tag: latest
     repo: weaveworksdemos/user
     tag: 0.4.7
-  containerPort: 8084
+  containerPort: 80
+  # containerPort: 8084
   resources:
     limits:
       cpu: 300m
-      memory: 300Mi
+      memory: 500Mi
     requests:
       cpu: 100m
       memory: 256Mi
