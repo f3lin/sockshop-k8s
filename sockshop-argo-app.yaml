@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/f3lin/sockshop-k8s.git
-    targetRevision: dev
+    targetRevision: main
     path: app
     helm:
       valueFiles:
