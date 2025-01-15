@@ -183,8 +183,6 @@ shipping:
 
 userdb:
   image:
-    # repo: f3lin/user-db
-    # tag: latest
     repo: weaveworksdemos/user-db
     tag: 0.4.0
   resources:
@@ -197,12 +195,9 @@ userdb:
 
 user:
   image:
-    # repo: f3lin/user
-    # tag: latest
     repo: weaveworksdemos/user
     tag: 0.4.7
   containerPort: 80
-  # containerPort: 8084
   resources:
     limits:
       cpu: 300m

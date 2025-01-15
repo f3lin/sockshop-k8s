@@ -23,29 +23,3 @@ spec:
             name: front-end
             port:
               number: 80
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: kuard
-#   namespace: dev
-#   annotations:
-#     # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-#     # nginx.ingress.kubernetes.io/ssl-redirect: "true"
-#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-# spec:
-#   ingressClassName: nginx
-#   tls:
-#   - hosts:
-#       - test.monlabo.de
-#     secretName: test-server-tls
-#   rules:
-#   - host: "test.monlabo.de"
-#     http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: kuard
-#             port:
-#               number: 80
