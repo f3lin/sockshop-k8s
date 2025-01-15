@@ -1,0 +1,48 @@
+{{- if .Values.zipkin.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin
+  namespace: dev
+  labels:
+    name: zipkin
+spec:
+  type: ClusterIP
+  ports:
+    # the port that this service should serve on
+  - port: 9411
+    targetPort: 9411
+    # nodePort: 30002
+  selector:
+    name: zipkin
+{{- end -}}
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     nlb.ingress.kubernetes.io/scheme: "internet-facing"
+#     nlb.ingress.kubernetes.io/target-type: "ip"
+#     nlb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+#     nlb.ingress.kubernetes.io/ssl-redirect: '443'
+# #   labels:
+# # {{ toYaml .Values.ingress.labels | indent 4 }}
+#   name: zipkin-socks-ingress
+#   namespace: dev
+# spec:
+#   ingressClassName: nginx
+#   tls:
+#   - hosts:
+#     secretName: 'wildcard-cert-tls'
+#   rules:
+#   - host: zipkin.eks.monlabo.de
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: zipkin
+#             port:
+#               number: 9411
