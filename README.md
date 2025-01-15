@@ -79,7 +79,7 @@ This will:
 
 ### 5. Access the Application
 
-
+![Argo Dashboard](https://github.com/f3lin/sockshop-k8s/blob/main/app/argo-dashboard.png "Dashboard")
 
 ## Cleaning Up
 To remove the deployment, run the following commands:
