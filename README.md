@@ -32,23 +32,12 @@ Follow these steps to deploy the Sockshop microservices:
 Clone the Git repository containing the Sockshop project files:
 
 ```bash
-git clone <repository-url>
-cd sockshop-k8s
+$ git clone https://github.com/f3lin/sockshop-k8s.git
+$ cd sockshop-k8s
 ```
 
-### 2. Install the Helm Chart
-Navigate to the `app` directory and install the Helm chart to deploy the Sockshop microservices:
+### 2. Expose the Application using NGINX Ingress
 
-```bash
-cd app
-helm install sockshop . -n dev --create-namespace
-```
-
-This command:
-- Installs the Helm chart defined in the `app` directory.
-- Creates a namespace `sockshop` if it doesn’t already exist.
-
-### 3. Expose the Application using NGINX Ingress
 Ensure your NGINX Ingress Controller is running. Then, add the following Ingress configuration to expose the Sockshop application:
 
 1. Update the `values.yaml` file in the `app` directory with the appropriate ingress settings:
@@ -60,42 +49,44 @@ Ensure your NGINX Ingress Controller is running. Then, add the following Ingress
     host: <YOUR-RESERVED-DNS-NAME>
     tlsSecretName: '<YOUR-TLS-SECRET-NAME >'
    ```
+2. Commit and Push your change to your Github Repos:
 
-2. Redeploy the Helm chart to apply the changes:
    ```bash
-   helm upgrade sockshop . -n dev
+      $ git add .
+      $ git commit "<your message>"
+      $ git push origin master
    ```
-3. Add a DNS entry (or update `/etc/hosts`) to resolve `<YOUR-RESERVED-DNS-NAME>` to your NGINX ingress controller’s IP address or NGINX ingress dns name you reserved.
+
+3. Add a DNS entry (or update `/etc/hosts`) to resolve `<YOUR-RESERVED-DNS-NAME>` to your DNS provider 
 
 ### 4. Deploy the ArgoCD Application
 The file `sockshop-argo-app.yaml` contains the ArgoCD application manifest. Apply it to register the Sockshop application in ArgoCD:
 
 ```bash
-kubectl apply -f sockshop-argo-app.yaml -n argocd
+$ kubectl apply -f sockshop-argo-app.yaml -n argocd
 ```
+
 This will:
 - Register the application in ArgoCD.
 - Allow ArgoCD to monitor the repository for changes and sync them automatically.
 
 ### 5. Access the Application
 
+   - URL: `http://<your-argocd-server>`
+   - Log in with your ArgoCD credentials.
+
 ![Argo Dashboard](https://github.com/f3lin/sockshop-k8s/blob/main/app/argo-dashboard.png "Dashboard")
+
+Sockshop user credential example:
+- username: user
+- password: password
 
 ## Cleaning Up
 To remove the deployment, run the following commands:
 
-1. Uninstall the Helm release:
-   ```bash
-   helm uninstall sockshop -n cev
-   ```
-2. Delete the namespace:
-   ```bash
-   kubectl delete namespace dev
-   ```
-3. Remove the ArgoCD application:
-   ```bash
-   kubectl delete -f sockshop-argo-app.yaml -n argocd
-   ```
+```bash
+$ kubectl delete -f sockshop-argo-app.yaml -n argocd
+```
 
 ## Additional Notes
 - Make sure to update the ingress host in `values.yaml` with your actual domain or IP.
