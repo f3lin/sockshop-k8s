@@ -21,13 +21,13 @@ spec:
         path: /
         pathType: Prefix
     {{- if .Values.host }}
-    host: {{ template "host" . }}
+    host: {{ .Values.ingress.host}}
     {{- end }}
   {{- if .Values.ingress.tlsSecretName }}
   tls:
   - secretName: {{ .Values.ingress.tlsSecretName }}
     {{- if .Values.host }}
     hosts:
-    - {{ template "host" . }}
+    - {{ .Values.ingress.host}}
     {{- end }}
   {{- end }}
