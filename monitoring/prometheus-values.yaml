@@ -1,0 +1,64 @@
+# This YAML file contains configuration values for the Prometheus Helm chart.
+# 
+# Chart Source: https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
+#
+# Installation Instructions:
+# 1. Add the Prometheus Community Helm repository:
+#    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+# 2. Update the Helm repository to get the latest charts:
+#    helm repo update
+# 3. Install the Prometheus chart using the specified values file:
+#    helm install prometheus prometheus-community/kube-prometheus-stack -f prometheus-values.yaml --namespace monitoring
+# chart: https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
+alertmanager:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts: ['monitoring.dev.monlabo.de']
+    paths: ['/alertmanager']
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    tls:
+      - secretName: dev.monlabo.de
+        hosts:
+        - '*.dev.monlabo.de'
+  alertmanagerSpec:
+    externalUrl: https://monitoring.dev.monlabo.de/alertmanager
+    routePrefix: /alertmanager
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts: ['monitoring.dev.monlabo.de']
+    paths: ['/prometheus']
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    tls:
+      - secretName: dev.monlabo.de
+        hosts:
+        - '*.dev.monlabo.de'
+  prometheusSpec:
+    externalUrl: "https://monitoring.dev.monlabo.de/prometheus"
+    routePrefix: /prometheus
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+        
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts: ['monitoring.dev.monlabo.de']
+    path: "/"
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    tls:
+      - secretName: dev.monlabo.de
+        hosts:
+        - '*.dev.monlabo.de'
