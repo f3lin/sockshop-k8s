@@ -241,7 +241,7 @@ zipkin:
         requests:
             cpu: 100m
             memory: 300Mi
-    url: zipkin.zipkin.svc.cluster.local
+    url: zipkin.dev.svc.cluster.local
 
 zipkincron:
     image:
