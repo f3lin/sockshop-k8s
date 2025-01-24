@@ -1,0 +1,20 @@
+# This YAML file contains custom values for the ingress-nginx Helm chart.
+# 
+# The chart can be found at: https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
+# 
+# To install the ingress-nginx chart with these custom values, use the following Helm command:
+# helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+# helm repo update
+# helm install ingress-nginx ingress-nginx/ingress-nginx -f k8s-ingress-nginx-values.yaml --namespace ingress-nginx --create-namespace
+# 
+# These custom values are for monitoring the ingress-nginx with Prometheus (kube-prometheus-stack).
+# If you wish to install with monitoring, set controller.metrics.enabled to true but make sure Prometheus is installed first.
+controller:
+  metrics:
+    enabled: false # Set this to true to enable metrics. Ensure Prometheus is installed first.
+    serviceMonitor:
+      additionalLabels:
+        release: prometheus
+      enabled: true
+
+        
