@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: {{ .Values.namespace }}
   name: catalogue-db
-  namespace: dev
   labels:
     name: catalogue-db
 spec:

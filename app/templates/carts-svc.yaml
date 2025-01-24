@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: {{ .Values.namespace }}
   name: carts
-  namespace: dev
   labels:
     name: carts
 spec:

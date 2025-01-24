@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: {{ .Values.namespace }}
   name: queue-master
-  namespace: dev
   labels:
     name: queue-master
 spec:

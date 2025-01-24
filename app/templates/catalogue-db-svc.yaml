@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: {{ .Values.namespace }}
   name: catalogue-db
-  namespace: dev
   labels:
     name: catalogue-db
 spec:

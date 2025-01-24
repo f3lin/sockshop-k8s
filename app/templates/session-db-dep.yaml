@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: {{ .Values.namespace }}
   name: session-db
-  namespace: dev
   labels:
     name: session-db
 spec:
@@ -22,8 +22,6 @@ spec:
         ports:
         - name: redis
           containerPort: 6379
-        resources:
-{{ toYaml .Values.sessiondb.resources | indent 10 }}
         securityContext:
           capabilities:
             drop:
@@ -33,3 +31,5 @@ spec:
               - SETGID
               - SETUID
           readOnlyRootFilesystem: true
+        resources:
+{{ toYaml .Values.sessiondb.resources | indent 10 }}

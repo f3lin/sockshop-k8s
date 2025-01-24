@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: {{ .Values.namespace }}
   name: catalogue
-  namespace: dev
   labels:
     name: catalogue
 spec:
@@ -20,17 +20,13 @@ spec:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
       {{- end }}
     spec:
-      initContainers:
-        - name: wait-for-db
-          image: busybox
-          command: ['sh', '-c', 'until nc -z -v -w10 catalogue-db 3306; do sleep 5; done']
       containers:
       - name: catalogue
         image: {{if .Values.global.registry}}{{ .Values.global.registry }}/{{end}}{{ .Values.catalogue.image.repo }}:{{ .Values.catalogue.image.tag }}
         command: ["/app"]
         args:
         - -port={{ .Values.catalogue.containerPort }}
-        - -DSN=catalogue_user:default_password@tcp(catalogue-db.dev.svc.cluster.local:3306)/socksdb
+        - -DSN=catalogue_user:default_password@tcp(catalogue-db.{{ .Release.Namespace }}.svc.cluster.local:3306)/socksdb
         {{- if .Values.zipkin.enabled }}
         env:
          - name: ZIPKIN
