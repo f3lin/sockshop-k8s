@@ -1,0 +1,21 @@
+# https://github.com/digitalocean/Kubernetes-Starter-Kit-Developers/blob/main/03-setup-ingress-controller/guides/wildcard_certificates.md
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dev.monlabo.de
+  # Cert-Manager will put the resulting Secret in the same Kubernetes namespace as the Certificate.
+  namespace: dev
+spec:
+  # Secret name to create, where the private key and certificate should be stored.
+  secretName: dev.monlabo.de
+  # What Issuer to use for getting the certificate.
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    group: cert-manager.io
+  # Common name to be used on the Certificate.
+  commonName: "*.dev.monlabo.de"
+  # List of DNS subjectAltNames to be set on the Certificate.
+  dnsNames:
+    - "dev.monlabo.de"
+    - "*.dev.monlabo.de"

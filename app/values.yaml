@@ -12,7 +12,7 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-  host: app.dev.monlabo.de
+  host: socks.dev.monlabo.de
   tlsSecretName: 'wildcard-cert-tls'
 
 cartsdb:
