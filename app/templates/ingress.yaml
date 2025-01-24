@@ -9,6 +9,7 @@ metadata:
   name: {{ template "fullname" .}}-socks-ingress
   namespace: dev
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
   - http:
       paths:
